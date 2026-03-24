@@ -50,11 +50,12 @@ async def upload_type_selection(callback: CallbackQuery, state: FSMContext):
     await state.update_data(item_type=item_type)
 
     # Check daily upload limit (max 5 per 24 hours)
-    daily_count = await db_service.get_daily_upload_count(callback.from_user.id)
-    if daily_count >= 5:
-        await callback.message.edit_text(_["upload"]["limit_reached"], parse_mode="html")
-        await callback.answer()
-        return
+    if callback.from_user.id not in config.ADMIN_IDS:
+        daily_count = await db_service.get_daily_upload_count(callback.from_user.id)
+        if daily_count >= 5:
+            await callback.message.edit_text(_["upload"]["limit_reached"], parse_mode="html")
+            await callback.answer()
+            return
 
     # Pre-check: profile must exist
     user = await db_service.get_user(callback.from_user.id)

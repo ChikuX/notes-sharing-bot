@@ -1,0 +1,118 @@
+name: English
+
+start:
+  welcome: |
+    👋 <b>Welcome to College Library Bot!</b>
+
+    Upload your notes to help fellow students.
+    Choose an option below to get started:
+
+profile:
+  title: "👤 <b>Your Profile</b>"
+  name: "📛 Name"
+  roll_no: "🆔 Roll No"
+  course: "📚 Course"
+  department: "🏫 Department"
+  semester: "📅 Semester"
+  session: "📆 Session"
+  not_exists: |
+    🚫 You haven't created a profile yet.
+    Let's set one up!
+  ask_name: "✏️ Enter your <b>full name</b>:"
+  ask_roll: "🆔 Enter your <b>University Roll No</b>:"
+  ask_course: "📚 Select your <b>course</b>:"
+  ask_department: "🏫 Select your <b>department/branch</b>:"
+  ask_semester: "📅 Select your <b>semester</b>:"
+  ask_session: "📆 Enter your <b>academic session</b> (e.g. 2024-28):"
+  confirm: |
+    📋 <b>Please confirm your profile:</b>
+
+    📛 Name: {name}
+    🆔 Roll No: {roll_no}
+    📚 Course: {course}
+    🏫 Department: {department}
+    📅 Semester: {semester}
+    📆 Session: {session}
+  saved: "✅ Profile saved successfully!"
+  reenter: "🔄 Let's start over."
+  already_exists: "Your profile is already set up."
+
+upload:
+  ask_type: "📚 What are you uploading today?"
+  send_pdf: "📄 Please send your <b>PDF file</b> (max 20MB):"
+  not_pdf: "❌ Please send a valid <b>PDF</b> file."
+  too_large: "❌ File is too large. Max size is <b>20MB</b>."
+  no_document: "❌ Please send a <b>document</b> (PDF file)."
+  need_profile: |
+    ⚠️ You need to create a profile first before uploading notes.
+  use_profile: |
+    Do you want to use your existing profile data?
+
+    📛 Name: {name}
+    🆔 Roll No: {roll_no}
+    📚 Course: {course}
+    🏫 Dept: {department}
+    📅 Semester: {semester}
+    📆 Session: {session}
+  ask_subject: "📝 Enter the <b>subject name</b>:"
+  ask_name: "✏️ Enter <b>name</b> for this submission:"
+  ask_roll: "🆔 Enter <b>Roll No</b>:"
+  ask_course: "📚 Select <b>course</b>:"
+  ask_department: "🏫 Select <b>department/branch</b>:"
+  ask_semester: "📅 Select <b>semester</b>:"
+  ask_session: "📆 Enter <b>academic session</b> (e.g. 2024-28):"
+  ask_year: "📆 Enter <b>Year</b> (e.g. 2023):"
+  confirm: |
+    📌 <b>Confirm your submission:</b>
+
+    📛 Name: {name}
+    🆔 Roll No: {roll_no}
+    📚 Course: {course}
+    🏫 Dept: {department}
+    📅 Semester: {semester}
+    📆 Session: {session}
+    📝 Subject: {subject}
+  submitted: "✅ Your notes have been submitted for review!"
+  cancelled: "❌ Upload cancelled."
+  upload_error: "❌ Something went wrong while uploading. Please try again."
+  limit_reached: "❌ You have reached the daily upload limit.\nPlease try again tomorrow."
+
+admin:
+  new_note: |
+    📥 <b>New Note Submission</b>
+
+    📛 Name: {name}
+    📚 Course: {course}
+    🏫 Dept: {department}
+    📅 Semester: {semester}
+    📆 Session / Year: {session}
+    📝 Subject: {subject}
+  approved: "🎉 Your submission for <b>{subject}</b> has been approved! ✅"
+  rejected: "❌ Your submission for <b>{subject}</b> was rejected."
+  approve_done: "✅ Submission approved."
+  reject_done: "❌ Submission rejected."
+  not_authorized: "🚫 You are not authorized."
+
+settings:
+  choose_language: "🌐 Choose your language:"
+  language_set: "✅ Language set to <b>{lang}</b>"
+
+errors:
+  invalid_input: "❌ Invalid input. Please try again."
+  too_short: "❌ Input is too short. Please enter at least 3 characters."
+  cancelled: "❌ Cancelled."
+
+buttons:
+  upload: "📤 Upload Notes"
+  profile: "👤 Profile"
+  language: "🌐 Language"
+  library: "📚 Visit Library"
+  help: "❓ Help"
+  confirm: "✅ Confirm"
+  cancel: "❌ Cancel"
+  reenter: "🔄 Re-enter"
+  back: "🔙 Back"
+  yes: "✅ Yes"
+  no: "❌ No"
+  approve: "✅ Approve"
+  reject: "❌ Reject"

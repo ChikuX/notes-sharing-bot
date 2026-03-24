@@ -51,6 +51,8 @@ async def upload_type_selection(callback: CallbackQuery, state: FSMContext):
 
     # Check daily upload limit (max 5 per 24 hours)
     print("ADMINS: ", config.ADMIN_IDS)
+    print("USERS: ", callback.from_user.id)
+    print(callback.from_user.id in config.ADMIN_IDS)
     if callback.from_user.id not in config.ADMIN_IDS:
         daily_count = await db_service.get_daily_upload_count(callback.from_user.id)
         if daily_count >= 5:

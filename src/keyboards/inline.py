@@ -55,7 +55,7 @@ START_BUTTON = InlineKeyboardMarkup(inline_keyboard=[
         InlineKeyboardButton(text="🌐 Language", callback_data="language"),
     ],
     [
-        InlineKeyboardButton(text="📚 Visit Library", url="https://college-resource-hub-one.vercel.app/"),
+        InlineKeyboardButton(text="📚 Visit Library", url="https://www.campusvault.xyz/"),
     ],
     [
         InlineKeyboardButton(text="❓ Help", callback_data="help"),

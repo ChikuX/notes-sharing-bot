@@ -2,10 +2,24 @@ name: English
 
 start:
   welcome: |
-    👋 <b>Welcome to College Library Bot!</b>
+    <b>Welcome to LibraryHub 📚</b>
 
-    Upload your notes to help fellow students.
-    Choose an option below to get started:
+    This platform helps students share and access:
+
+      • Notes
+      • PYQs (Previous Year Questions)
+
+    ━━━━━━━━━━━━━━━
+
+    What you can do:
+
+    📤 Upload Notes / PYQs  
+    📚 Help other students  
+    🌐 Get your content published on the website  
+
+    ━━━━━━━━━━━━━━━
+
+    Click below to get started 👇
 
 profile:
   title: "👤 <b>Your Profile</b>"

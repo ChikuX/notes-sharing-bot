@@ -80,6 +80,12 @@ All submissions are reviewed before publishing to ensure quality.
 
 ## 🔗 Related
 
-👉 Website: [Click Here](https://campusvault.xyz/)
-
+👉 Website: [Click Here](https://campusvault.xyz/)   
 👉 Repo: [Click Here](https://github.com/ChikuX/LibraryHub)
+
+---
+
+## 👨‍💻 Author
+> Developed by Ankit  
+> GitHub: [Click Here](https://github.com/ChikuX)    
+> LinkedIn: [Click Here](https://www.linkedin.com/in/ankit1706/)

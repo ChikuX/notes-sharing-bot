@@ -65,7 +65,7 @@ async def upload_type_selection(callback: CallbackQuery, state: FSMContext):
     if not user or not user.get("name"):
         await callback.message.edit_text(
             _["upload"]["need_profile"],
-            reply_markup=profile_or_back_kb(),
+            reply_markup=profile_or_back_kb(_['buttons']),
             parse_mode="html",
         )
         await callback.answer()
@@ -107,7 +107,7 @@ async def handle_pdf(message: Message, state: FSMContext):
             semester=profile.get("semester", "N/A"),
             session=profile.get("session", "N/A"),
         ),
-        reply_markup=profile_choice_kb(),
+        reply_markup=profile_choice_kb(_['buttons']),
         parse_mode="html",
     )
     await state.set_state(UploadState.choosing_profile_mode)
@@ -298,7 +298,7 @@ async def upload_get_subject(message: Message, state: FSMContext):
             session=session_or_year or "N/A",
             subject=data["subject"],
         ),
-        reply_markup=confirm_kb(),
+        reply_markup=confirm_kb(_['buttons']),
         parse_mode="html",
     )
     await state.set_state(UploadState.confirming)
@@ -357,7 +357,7 @@ async def upload_confirm(callback: CallbackQuery, state: FSMContext):
             chat_id=config.ADMIN_CHANNEL_ID,
             document=data["file_id"],
             caption=caption,
-            reply_markup=inline.approval_btn(submission_id),
+            reply_markup=inline.approval_btn(submission_id, _['buttons']),
             parse_mode="html",
         )
 

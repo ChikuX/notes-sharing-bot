@@ -46,21 +46,22 @@ def get_semester_count(course_key: str) -> int:
 
 # ─── Start Menu ───────────────────────────────────────────────
 
-START_BUTTON = InlineKeyboardMarkup(inline_keyboard=[
-    [
-        InlineKeyboardButton(text="📤 Upload Notes", callback_data="upload"),
-    ],
-    [
-        InlineKeyboardButton(text="👤 Profile", callback_data="profile"),
-        InlineKeyboardButton(text="🌐 Language", callback_data="language"),
-    ],
-    [
-        InlineKeyboardButton(text="📚 Visit Library", url="https://www.campusvault.xyz/"),
-    ],
-    [
-        InlineKeyboardButton(text="❓ Help", callback_data="help"),
-    ]
-])
+def START_BUTTON(btn):
+    return InlineKeyboardMarkup(inline_keyboard=[
+        [
+            InlineKeyboardButton(text=btn['upload'], callback_data="upload"),
+        ],
+        [
+            InlineKeyboardButton(text=btn['profile'], callback_data="profile"),
+            InlineKeyboardButton(text=btn['language'], callback_data="language"),
+        ],
+        [
+            InlineKeyboardButton(text=btn['library'], url="https://www.campusvault.xyz/"),
+        ],
+        [
+            InlineKeyboardButton(text=btn['help'], callback_data="help"),
+        ]
+    ])
 
 
 # ─── Upload Type Selection ────────────────────────────────────
@@ -88,60 +89,60 @@ def language_kb():
 
 # ─── Profile choice (upload flow) ────────────────────────────
 
-def profile_choice_kb():
+def profile_choice_kb(btn):
     return InlineKeyboardMarkup(inline_keyboard=[
         [
-            InlineKeyboardButton(text="✅ Yes", callback_data="use_profile"),
-            InlineKeyboardButton(text="❌ No", callback_data="change_profile"),
+            InlineKeyboardButton(text=btn['yes'], callback_data="use_profile"),
+            InlineKeyboardButton(text=btn['no'], callback_data="change_profile"),
         ]
     ])
 
 
 # ─── Confirm / Cancel ────────────────────────────────────────
 
-def confirm_kb():
+def confirm_kb(btn):
     return InlineKeyboardMarkup(inline_keyboard=[
         [
-            InlineKeyboardButton(text="✅ Confirm", callback_data="confirm"),
-            InlineKeyboardButton(text="❌ Cancel", callback_data="cancel"),
+            InlineKeyboardButton(text=btn['confirm'], callback_data="confirm"),
+            InlineKeyboardButton(text=btn['cancel'], callback_data="cancel"),
         ]
     ])
 
 
 # ─── Profile confirm (confirm / re-enter) ────────────────────
 
-def profile_confirm_kb():
+def profile_confirm_kb(btn):
     return InlineKeyboardMarkup(inline_keyboard=[
         [
-            InlineKeyboardButton(text="✅ Confirm", callback_data="profile_confirm"),
-            InlineKeyboardButton(text="🔄 Re-enter", callback_data="profile_reenter"),
+            InlineKeyboardButton(text=btn['confirm'], callback_data="profile_confirm"),
+            InlineKeyboardButton(text=btn['reenter'], callback_data="profile_reenter"),
         ]
     ])
 
 
 # ─── Profile / Back (upload pre-check) ───────────────────────
 
-def profile_or_back_kb():
+def profile_or_back_kb(btn):
     return InlineKeyboardMarkup(inline_keyboard=[
         [
-            InlineKeyboardButton(text="👤 Profile", callback_data="profile"),
-            InlineKeyboardButton(text="🔙 Back", callback_data="back_home"),
+            InlineKeyboardButton(text=btn['profile'], callback_data="profile"),
+            InlineKeyboardButton(text=btn['back'], callback_data="back_home"),
         ]
     ])
 
 
-def back_kb():
+def back_kb(btn):
     return InlineKeyboardMarkup(inline_keyboard=[
-        [InlineKeyboardButton(text="🔙 Back", callback_data="back_home")]
+        [InlineKeyboardButton(text=btn['back'], callback_data="back_home")]
     ])
 
 
 # ─── Profile View ──────────────────────────────────────────
 
-def profile_view_kb():
+def profile_view_kb(btn):
     return InlineKeyboardMarkup(inline_keyboard=[
-        [InlineKeyboardButton(text="✏️ Edit Profile", callback_data="edit_profile")],
-        [InlineKeyboardButton(text="🔙 Back", callback_data="back_home")]
+        [InlineKeyboardButton(text=btn['edit_profile'], callback_data="edit_profile")],
+        [InlineKeyboardButton(text=btn['back'], callback_data="back_home")]
     ])
 
 
@@ -196,10 +197,10 @@ def semester_kb(course_key: str):
 
 # ─── Admin approval ──────────────────────────────────────────
 
-def approval_btn(note_id: str):
+def approval_btn(note_id: str, btn):
     return InlineKeyboardMarkup(inline_keyboard=[
         [
-            InlineKeyboardButton(text="✅ Approve", callback_data=f"approve_{note_id}"),
-            InlineKeyboardButton(text="❌ Reject", callback_data=f"reject_{note_id}"),
+            InlineKeyboardButton(text=btn['approve'], callback_data=f"approve_{note_id}"),
+            InlineKeyboardButton(text=btn['reject'], callback_data=f"reject_{note_id}"),
         ]
     ])

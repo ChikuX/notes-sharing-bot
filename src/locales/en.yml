@@ -21,6 +21,21 @@ start:
 
     Click below to get started 👇
 
+  help:
+    📖 <b>How to use this bot:</b>
+    
+    
+        1️⃣ Create your <b>Profile</b> first
+      
+        2️⃣ Click <b>Upload Notes</b> and send a PDF
+      
+        3️⃣ Your notes will be reviewed by admins
+      
+        4️⃣ You'll get notified once approved!
+    
+    
+    Use /start to see the main menu.
+
 profile:
   title: "👤 <b>Your Profile</b>"
   name: "📛 Name"
@@ -130,3 +145,4 @@ buttons:
   no: "❌ No"
   approve: "✅ Approve"
   reject: "❌ Reject"
+  edit_profile: "✏️ Edit Profile"

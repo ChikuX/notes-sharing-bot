@@ -2,16 +2,16 @@
 Admin handler – approve / reject notes from admin channel.
 
 On APPROVE:
-  1. Look up submission from in-memory store
-  2. Download file from Telegram (file_id)
-  3. Upload to Supabase Storage
-  4. Insert record into Neon DB (status=approved, file_url set)
-  5. Notify user
+    1. Look up submission from in-memory store
+    2. Download file from Telegram (file_id)
+    3. Upload to Supabase Storage
+    4. Insert record into Neon DB (status=approved, file_url set)
+    5. Notify user
 
 On REJECT:
-  1. Insert record into Neon DB (status=rejected, file_url=NULL)
-  2. Notify user
-  3. NO storage upload
+    1. Insert record into Neon DB (status=rejected, file_url=NULL)
+    2. Notify user
+    3. NO storage upload
 """
 import logging
 from aiogram import Router

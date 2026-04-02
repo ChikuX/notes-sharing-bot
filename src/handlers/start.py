@@ -19,7 +19,7 @@ async def _lang(telegram_id: int) -> str:
 async def start_command(m: Message):
     lang = await _lang(m.from_user.id)
     _ = get_langs(lang)
-    await m.reply(_["start"]["welcome"], reply_markup=inline.START_BUTTON, parse_mode="html")
+    await m.reply(_["start"]["welcome"], reply_markup=inline.START_BUTTON(_['buttons']), parse_mode="html")
 
 
 @app.callback_query(lambda c: c.data == "help")
@@ -27,12 +27,7 @@ async def help_handler(callback: CallbackQuery):
     lang = await _lang(callback.from_user.id)
     _ = get_langs(lang)
     await callback.message.answer(
-        "📖 <b>How to use this bot:</b>\n\n"
-        "1️⃣ Create your <b>Profile</b> first\n"
-        "2️⃣ Click <b>Upload Notes</b> and send a PDF\n"
-        "3️⃣ Your notes will be reviewed by admins\n"
-        "4️⃣ You'll get notified once approved!\n\n"
-        "Use /start to see the main menu.",
+        _["start"]["help"],
         parse_mode="html",
     )
     await callback.answer()
@@ -44,7 +39,7 @@ async def back_home(callback: CallbackQuery):
     _ = get_langs(lang)
     await callback.message.edit_text(
         _["start"]["welcome"],
-        reply_markup=inline.START_BUTTON,
+        reply_markup=inline.START_BUTTON(_['buttons']),
         parse_mode="html",
     )
     await callback.answer()

@@ -41,7 +41,7 @@ async def profile_entry(callback: CallbackQuery, state: FSMContext):
             f"{_['profile']['department']}: {dept}\n"
             f"{_['profile']['semester']}: {user.get('semester', 'N/A')}\n"
             f"{_['profile']['session']}: {user.get('session', 'N/A')}",
-            reply_markup=profile_view_kb(),
+            reply_markup=profile_view_kb(_['buttons']),
             parse_mode="html",
         )
     else:
@@ -182,7 +182,7 @@ async def profile_get_session(message: Message, state: FSMContext):
             semester=data["semester"],
             session=data["session"],
         ),
-        reply_markup=profile_confirm_kb(),
+        reply_markup=profile_confirm_kb(_['buttons']),
         parse_mode="html",
     )
     await state.set_state(ProfileState.confirming)

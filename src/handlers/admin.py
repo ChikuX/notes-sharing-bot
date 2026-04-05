@@ -14,6 +14,7 @@ On REJECT:
     3. NO storage upload
 """
 import logging
+from datetime import datetime
 from aiogram import Router
 from aiogram.types import CallbackQuery
 
@@ -30,6 +31,8 @@ log = logging.getLogger(__name__)
 @app.callback_query(lambda c: c.data.startswith(("approve_", "reject_")))
 async def handle_admin_action(callback: CallbackQuery):
     admin_id = callback.from_user.id
+    admin_name = callback.from_user.full_name
+    time_str = datetime.now().strftime("%d %b %Y, %I:%M %p")
 
     # Authorization check
     if admin_id not in config.ADMIN_IDS:
@@ -43,8 +46,16 @@ async def handle_admin_action(callback: CallbackQuery):
     # Look up submission from in-memory store
     sub = submissions.get(submission_id)
     if not sub:
-        await callback.answer("⚠️ Submission expired or already processed", show_alert=True)
-        return
+        return await callback.answer("Already processed or expired", show_alert=True)
+
+    if sub.get("status") != "pending":
+        return await callback.answer("Already processing...", show_alert=True)
+
+    # Lock submission immediately
+    sub["status"] = "processing"
+
+    # Disable buttons after click (UI fix)
+    await callback.message.edit_reply_markup(reply_markup=None)
 
     user_id = sub["user_id"]
     file_id = sub["file_id"]
@@ -70,15 +81,6 @@ async def handle_admin_action(callback: CallbackQuery):
             display_semester = sub.get("display_semester")
             if not display_semester:
                 raise Exception("Semester missing")
-
-            print("FINAL DATA:", {
-                "type": sub.get("item_type", "notes"),
-                "name": sub.get("display_name", ""),
-                "course": sub.get("display_course", ""),
-                "dept": sub.get("display_department"),
-                "semester": display_semester,
-                "session_or_year": sub.get("display_year") if sub.get("item_type") == "pyqs" else sub.get("display_session", "")
-            })
 
             # Strict Academic Validation
             course_val = sub.get("display_course", "").upper()
@@ -141,10 +143,15 @@ async def handle_admin_action(callback: CallbackQuery):
                 log.warning(f"Could not notify user {user_id}: {e}")
 
             # 5. Update admin channel message
-            await callback.message.edit_caption(
-                caption=callback.message.caption + "\n\n✅ <b>APPROVED</b>",
-                parse_mode="html",
-            )
+            approved_text = f"\n\n✅ <b>Approved by:</b> {admin_name} ({admin_id})\n🕒 {time_str}"
+            try:
+                await callback.message.edit_caption(
+                    caption=callback.message.caption + approved_text,
+                    reply_markup=None,
+                    parse_mode="html"
+                )
+            except Exception:
+                await callback.answer("Approved, but couldn't update message", show_alert=True)
 
             # 6. Remove from pending store (prevent duplicate approval)
             submissions.remove(submission_id)
@@ -168,10 +175,15 @@ async def handle_admin_action(callback: CallbackQuery):
             log.warning(f"Could not notify user {user_id}: {e}")
 
         # 2. Update admin channel message
-        await callback.message.edit_caption(
-            caption=callback.message.caption + "\n\n❌ <b>REJECTED</b>",
-            parse_mode="html",
-        )
+        rejected_text = f"\n\n❌ <b>Rejected by:</b> {admin_name} ({admin_id})\n🕒 {time_str}"
+        try:
+            await callback.message.edit_caption(
+                caption=callback.message.caption + rejected_text,
+                reply_markup=None,
+                parse_mode="html"
+            )
+        except Exception:
+            await callback.answer("Rejected, but couldn't update message", show_alert=True)
 
         # 3. Remove from pending store
         submissions.remove(submission_id)

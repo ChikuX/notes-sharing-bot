@@ -90,7 +90,7 @@ def language_kb():
 # ─── Profile choice (upload flow) ────────────────────────────
 
 def profile_choice_kb(btn):
-    print(btn)
+    # print(btn)
     return InlineKeyboardMarkup(inline_keyboard=[
         [
             InlineKeyboardButton(text=btn['yes'], callback_data="use_profile"),

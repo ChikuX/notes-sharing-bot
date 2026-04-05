@@ -50,9 +50,6 @@ async def upload_type_selection(callback: CallbackQuery, state: FSMContext):
     await state.update_data(item_type=item_type)
 
     # Check daily upload limit (max 5 per 24 hours)
-    print("ADMINS: ", config.ADMIN_IDS)
-    print("USERS: ", callback.from_user.id)
-    print(callback.from_user.id in config.ADMIN_IDS)
     if callback.from_user.id not in config.ADMIN_IDS:
         daily_count = await db_service.get_daily_upload_count(callback.from_user.id)
         if daily_count >= 5:
@@ -98,7 +95,6 @@ async def handle_pdf(message: Message, state: FSMContext):
     data = await state.get_data()
     profile = data.get("user_profile", {})
 
-    print(_['buttons'])
     await message.answer(
         _["upload"]["use_profile"].format(
             name=profile.get("name", "N/A"),
@@ -311,11 +307,11 @@ async def upload_get_subject(message: Message, state: FSMContext):
 
 @app.callback_query(StateFilter(UploadState.confirming), lambda c: c.data == "confirm")
 async def upload_confirm(callback: CallbackQuery, state: FSMContext):
-    lang = await _lang(callback.from_user.id)
-    _ = get_langs(lang)
+    user_lang = await _lang(callback.from_user.id)
+    _ = get_langs(user_lang)
     data = await state.get_data()
-    
-    print(data)  # DEBUG
+
+    admin_ = get_langs("en")  # Force English for admin
 
     try:
         subject = data["subject"]
@@ -337,13 +333,14 @@ async def upload_confirm(callback: CallbackQuery, state: FSMContext):
             "display_semester": display_semester,
             "display_session": data.get("display_session", ""),
             "display_year": data.get("display_year", ""),
+            "status": "pending",
         })
 
         # 2. Send PDF to admin channel (NO storage, NO DB)
         
         session_or_year = data.get("display_year") if data.get("item_type") == "pyqs" else data.get("display_session")
         
-        caption = _["admin"]["new_note"].format(
+        caption = admin_["admin"]["new_note"].format(
             name=data.get("display_name", "N/A"),
             course=data.get("display_course", "N/A"),
             department=data.get("display_department") or "N/A",
@@ -358,7 +355,7 @@ async def upload_confirm(callback: CallbackQuery, state: FSMContext):
             chat_id=config.ADMIN_CHANNEL_ID,
             document=data["file_id"],
             caption=caption,
-            reply_markup=inline.approval_btn(submission_id, _['buttons']),
+            reply_markup=inline.approval_btn(submission_id, admin_['buttons']),
             parse_mode="html",
         )
 

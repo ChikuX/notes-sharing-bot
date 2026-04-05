@@ -98,6 +98,7 @@ async def handle_pdf(message: Message, state: FSMContext):
     data = await state.get_data()
     profile = data.get("user_profile", {})
 
+    print(_['buttons'])
     await message.answer(
         _["upload"]["use_profile"].format(
             name=profile.get("name", "N/A"),
